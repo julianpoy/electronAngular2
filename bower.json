@@ -1,0 +1,28 @@
+{
+  "name": "ElectronAngular",
+  "version": "1.0.0",
+  "homepage": "https://www.Kondeo.com",
+  "authors": [
+    "Julian Poyourow <julian@kondeo.com>"
+  ],
+  "description": "A boilerplate for Angular within Electron",
+  "moduleType": [
+    "node"
+  ],
+  "license": "RESERVED",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.0",
+    "skeleton": "2.0.4",
+    "angular-mocks": "1.5.0",
+    "angular-animate": "^1.5.0"
+  }
+}
