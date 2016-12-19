@@ -1,81 +1,43 @@
-// Karma configuration
-// Generated on Wed Jul 08 2015 11:17:58 GMT-0400 (Eastern Daylight Time)
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/0.13/config/configuration-file.html
 
-'use strict';
-
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
-
-    // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
-
-
-    // list of files / patterns to load in the browser
-    files: [
-      'dist/vendor/angular/angular.min.js',
-      'dist/vendor/angular-mocks/angular-mocks.js',
-      'dist/app/**/*.js',
-      '__tests__/**/*.spec.js'
-    ],
-
-
-    // list of files to exclude
-    exclude: [
-    ],
-
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'spec/**/*[sS]pec.js': ['coverage']
-    },
-
-
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'mocha', 'coverage'],
-
+    frameworks: ['jasmine', 'angular-cli'],
     plugins: [
-      'karma-jasmine',
-      'karma-coverage',
-      'karma-mocha-reporter',
-      'karma-phantomjs-launcher'
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-remap-istanbul'),
+      require('angular-cli/plugins/karma')
     ],
-
-    // web server port
-    port: 9876,
-
-
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
-
-    coverageReporter: {
-      type : 'html',
-      dir : 'karma-coverage/'
+    files: [
+      { pattern: './src/test.ts', watched: false }
+    ],
+    preprocessors: {
+      './src/test.ts': ['angular-cli']
     },
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    mime: {
+      'text/x-typescript': ['ts','tsx']
+    },
+    remapIstanbulReporter: {
+      reports: {
+        html: 'coverage',
+        lcovonly: './coverage/coverage.lcov'
+      }
+    },
+    angularCli: {
+      config: './angular-cli.json',
+      environment: 'dev'
+    },
+    reporters: config.angularCli && config.angularCli.codeCoverage
+              ? ['progress', 'karma-remap-istanbul']
+              : ['progress'],
+    port: 9876,
+    colors: true,
     logLevel: config.LOG_INFO,
-
-
-    // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
-
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
-
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    browsers: ['Chrome'],
+    singleRun: false
   });
 };
